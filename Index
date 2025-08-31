@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- A-Frame y MindAR -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+    <style>
+      body, html { margin: 0; overflow: hidden; width: 100%; height: 100%; }
+      #buttons {
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+      }
+      .btn {
+        border: 2px solid #444;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+        padding: 0;
+      }
+      .btn img {
+        width: 60px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 6px;
+      }
+      .btn:hover {
+        border-color: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene
+      mindar-face
+      embedded
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-assets>
+        <!-- Occluder cabeza -->
+        <a-asset-item id="headModel" 
+          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/sparkar/headOccluder.glb">
+        </a-asset-item>
+
+        <!-- Distintas versiones del mismo anteojo en diferentes colores -->
+        <a-asset-item id="glasses-black" src="https://tudominio.com/anteojos/anteojo_negro.glb"></a-asset-item>
+        <a-asset-item id="glasses-red" src="https://tudominio.com/anteojos/anteojo_rojo.glb"></a-asset-item>
+        <a-asset-item id="glasses-blue" src="https://tudominio.com/anteojos/anteojo_azul.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera active="false" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+
+      <!-- Occluder -->
+      <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model
+          mindar-face-occluder
+          src="#headModel"
+          position="0 -0.3 0.15"
+          scale="0.065 0.065 0.065"
+          visible="false">
+        </a-gltf-model>
+      </a-entity>
+
+      <!-- Modelo principal que se actualiza -->
+      <a-entity mindar-face-target="anchorIndex: 168">
+        <a-gltf-model
+          id="mainModel"
+          src="#glasses-black"
+          position="0 0.15 0"
+          rotation="0 0 0"
+          scale="1.2 1.2 1.2"
+          visible="true">
+        </a-gltf-model>
+      </a-entity>
+    </a-scene>
+
+    <!-- Botones de selección con miniaturas -->
+    <div id="buttons">
+      <button class="btn" onclick="changeModel('#glasses-black')">
+        <img src="https://tudominio.com/anteojos/thumb_negro.jpg" alt="Negro">
+      </button>
+      <button class="btn" onclick="changeModel('#glasses-red')">
+        <img src="https://tudominio.com/anteojos/thumb_rojo.jpg" alt="Rojo">
+      </button>
+      <button class="btn" onclick="changeModel('#glasses-blue')">
+        <img src="https://tudominio.com/anteojos/thumb_azul.jpg" alt="Azul">
+      </button>
+    </div>
+
+    <script>
+      function changeModel(modelId) {
+        document.querySelector("#mainModel").setAttribute("src", modelId);
+      }
+    </script>
+  </body>
+</html>
