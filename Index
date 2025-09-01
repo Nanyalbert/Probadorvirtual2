@@ -48,7 +48,7 @@
         </a-asset-item>
 
         <!-- Distintas versiones del mismo anteojo en diferentes colores -->
-        <a-asset-item id="glasses-black" src="https://raw.githubusercontent.com/Nanyalbert/Probadorvirtual/main/PalermoCarey.glb"></a-asset-item>
+        <a-asset-item id="glasses-black" src="https://raw.githubusercontent.com/Nanyalbert/Probadorvirtual2/main/PalermoCarey.glb"></a-asset-item>
         <a-asset-item id="glasses-red" src="https://tudominio.com/anteojos/anteojo_rojo.glb"></a-asset-item>
         <a-asset-item id="glasses-blue" src="https://tudominio.com/anteojos/anteojo_azul.glb"></a-asset-item>
       </a-assets>
